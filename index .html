@@ -1,145 +1,315 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>SRP-Hospital</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Hospital Landing Page</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
 
-.navbar {
-  overflow: hidden;
-  background-color: rgba(252, 17, 107, 0.74);
-}
+        header {
+            background: #0077b6;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
 
-.navbar a {
-  float: left;
-  font-size: 16px;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
 
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
+        nav {
+            margin-top: 10px;
+        }
 
-.dropdown .dropbtn {
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
 
-.navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: rgb(56, 15, 238);
-}
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px;
+            background: #f1f1f1;
+        }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
+        .hero .content {
+            flex: 1;
+            min-width: 300px;
+            margin-right: 20px;
+        }
 
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
+        .hero h2 {
+            font-size: 2.5rem;
+            color: #0077b6;
+        }
 
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
+        .hero p {
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-.registerbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
+        .hero button {
+            background: #0077b6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
 
-.registerbtn:hover {
-  opacity:1;
-}
+        .hero img {
+            flex: 1;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            min-width: 300px;
+        }
 
+        footer {
+            background: #0077b6;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
 
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-.center {
-  margin: auto;
-  width: 60%;
-  border: 3px solid #4d00dbc5;
-  padding: 10px;
-}
+        .modal.active {
+            display: flex;
+        }
 
-</style>
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: #0077b6;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .modal-content button {
+            background: #0077b6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-content button.close {
+            background: #ff4d4d;
+            margin-top: 10px;
+        }
+
+        /* Prediction Page */
+        #predict {
+            display: none;
+            padding: 40px;
+            background: #f9f9f9;
+            text-align: center;
+        }
+
+        #predict h2 {
+            color: #0077b6;
+            margin-bottom: 20px;
+        }
+
+        #predict form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #predict form input {
+            width: 80%;
+            max-width: 400px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #predict form button {
+            background: #0077b6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #predict .back-btn {
+            margin-top: 20px;
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .section.active {
+            display: block;
+            /* Display the active section */
+        }
+
+        .btn {
+            background-color: rgb(252, 17, 107);
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero .content {
+                margin-right: 0;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-  <div class="navbar">
-    <a href="/">SRP LOGIN</a>
-    <div class="dropdown">
-      <button class="dropbtn">Other Projects
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a href="https://sms-spam-ml.herokuapp.com/">SMS Spam Detector</a>
-        <a href="https://sentiment-analysis-nerchuko.herokuapp.com/">Sentiment Analysis</a>
-        
-      </div>
-    </div> 
-  </div>
-  
-  <h2><a href = '/'> <p style="text-align:center;">Heart Disease Prediction</p></a></h2>
-   
-  <div class="center">
-  <form action="/predict"method="post">
-    <input type="text" name="chest pain type (4 values)" placeholder="chest pain type (values 0,1,2,3)" required="required" />
-    <input type="text" name="resting blood pressure" placeholder="resting blood pressure" required="required" /> 
-  <input type="text" name="serum cholestoral in mg/dl" placeholder="serum cholestoral in mg/dl" required="required" />
-  <input type="text" name="fasting blood sugar > 120 mg/dl" placeholder="fasting blood sugar > 120 mg/dl" required="required" />  
-  <input type="text" name="resting electrocardiographic results (values 0,1,2)" placeholder="resting electrocardiographic results (values 0,1,2)" required="required" />
-    <input type="text" name="maximum heart rate achieved" placeholder="maximum heart rate achieved" required="required" />
-    <input type="text" name="exercise induced angina" placeholder="exercise induced angina" required="required" />
-    <button type="submit" class="registerbtn">Predict</button>
-</form>
-</div>
+    <header>
+        <h1>Stroke Risk Prediction Portal</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#contact">About</a>
+        </nav>
+    </header>
 
-  </body>
-  </html>
-  
+    <section class="hero" id="home">
+        <div class="content">
+            <h2>ML-based Stroke Risk Prediction</h2>
+            <p>Our dedicated Web Interface ensures the best healthcare services for you and your loved ones.</p>
+            <button id="get-started">Get Started</button>
+        </div>
+        <img src="https://res.cloudinary.com/dp8gu4t9m/image/upload/v1732292981/rb_108437_ndpoaa.png" alt="Hospital Illustration">
+    </section>
 
-    
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <h3>Login</h3>
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+            <button id="login-button">Login</button>
+            <button class="close" id="close-modal">Close</button>
+        </div>
+
+    </div>
+
+    <!-- Prediction Section -->
+    <div id="predict" class="section">
+        <h2>Heart Disease Prediction</h2>
+        <form action="/predict" method="post">
+            <input type="text" name="Age" placeholder="Patient Age" required />
+            <input type="text" name="Gender" placeholder="Male / Female" required />
+            <input type="text" name="chest pain type" placeholder="Chest Pain Type (0-3)" required />
+            <input type="text" name="resting blood pressure" placeholder="Blood Pressure" required />
+            <input type="text" name="serum cholesterol" placeholder="Serum Cholesterol level" required />
+            <input type="text" name="fasting blood sugar" placeholder="Fasting Blood Sugar > 120 mg" required />
+            <input type="text" name="smoking_status" placeholder="smoking_status Results (0-2)" required />
+            <input type="text" name="maximum heart rate" placeholder="Maximum Heart Rate Achieved" required />
+            <input type="text" name="exercise-induced angina" placeholder="Exercise Induced Angina" required />
+            <div>
+                <button type="submit" class="btn">Predict</button>
+                <button class="back-btn" onclick="navigateTo('home')">Back to Home</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const modal = document.getElementById('login-modal');
+        const getStartedButton = document.getElementById('get-started');
+        const closeModalButton = document.getElementById('close-modal');
+        const loginButton = document.getElementById('login-button');
+        const predictionSection = document.getElementById('predict');
+        const heroSection = document.getElementById('home');
+
+        getStartedButton.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        loginButton.addEventListener('click', () => {
+            modal.classList.remove('active');
+            heroSection.style.display = 'none';
+            predictionSection.style.display = 'block';
+        });
+
+        function navigateTo(section) {
+            if (section === 'home') {
+                heroSection.style.display = 'flex';
+                predictionSection.style.display = 'none';
+            }
+        }
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
