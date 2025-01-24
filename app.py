@@ -1,54 +1,44 @@
+from flask import Flask, request, jsonify, render_template
 import numpy as np
-from flask import Flask, request, render_template
-import pickle
 
 app = Flask(__name__)
-sc = pickle.load(open('sc.pkl', 'rb'))
-model = pickle.load(open('model.pkl', 'rb'))
-
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('hm.html')
 
-@app.route('/predict',methods=['POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
-    lst = []
-    cp = int(request.form['chest pain type (4 values)'])
-    if cp == 0:
-        lst += [1 , 0 ,0 ,0]
-    elif cp == 1:
-        lst += [0 ,1 ,0 ,0]
-    elif cp == 2:
-        lst += [0 ,0 ,1 ,0]
-    elif cp >= 3:
-        lst += [0 ,0 ,0 ,1]
-    trestbps = int(request.form["resting blood pressure" ])
-    lst += [trestbps]
-    chol = int(request.form["serum cholestoral in mg/dl"])
-    lst += [chol]
-    fbs = int(request.form["fasting blood sugar > 120 mg/dl"])
-    if fbs == 0:
-        lst += [1 , 0]
-    else:
-        lst += [0 , 1]
-    restecg = int(request.form["resting electrocardiographic results (values 0,1,2)"])
-    if restecg == 0:
-        lst += [1 ,0 ,0]
-    elif restecg == 1:
-        lst += [0 ,1 ,0]
-    else:
-        lst += [0 , 0,1]
-    thalach = int(request.form["maximum heart rate achieved"])
-    lst += [thalach]
-    exang = int(request.form["exercise induced angina"])
-    if exang == 0:
-        lst += [1 , 0]
-    else:
-        lst += [0 ,1 ]
-    final_features = np.array([lst])
-    pred = model.predict( sc.transform(final_features))
-    return render_template('result.html', prediction = pred)
+    try:
+        # Extract the data from the request
+        data = request.get_json()
 
-if __name__ == "__main__":
+        # Convert input data to a list of floats/integers for model prediction
+        features = [
+            int(data['age']),
+            int(data['sex']),
+            int(data['cp']),
+            float(data['trestbps']),
+            float(data['chol']),
+            int(data['fbs']),
+            int(data['restecg']),
+            float(data['thalach']),
+            int(data['exang']),
+            float(data['oldpeak']),
+            int(data['slope']),
+            int(data['ca']),
+            int(data['thal'])
+        ]
+
+        # Placeholder for model prediction
+        # Replace with actual model logic here
+        prediction = np.random.choice([0, 1])  # Simulate prediction
+
+        # Respond with the prediction
+        return jsonify({'prediction': 'Heart Disease Present' if prediction == 1 else 'No Heart Disease'})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+if __name__ == '__main__':
     app.run(debug=True)
