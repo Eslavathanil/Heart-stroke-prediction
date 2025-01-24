@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SRP-Hospital</title>
+  <title>E-Hospital</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -98,43 +98,180 @@ input[type=text], select {
 input[type=submit]:hover {
   background-color: #45a049;
 }
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
 
+        .header {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .hdp {
+            font-size: 35px;
+            color: #e42e4d;
+        }
+
+        .logo {
+            width: 50%;
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .result-message {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .result-message.error {
+            color: red;
+        }
+
+        .result-message.success {
+            color: blue;
+        }
+
+        .pic {
+            max-width:40%;
+            height:20%;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            margin: 20px 0;
+        }
+
+        .suggestions {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            width: 50%;
+            max-width: 600px;
+            text-align: left;
+            border: 2px solid #d0d0d0;
+        }
+
+        .suggestions ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        .custom-button {
+            color: white;
+            background-color: #e42e4d;
+            width: 150px;
+            height: 45px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-button:hover {
+            background-color: #d62d42;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hdp {
+                font-size: 28px;
+            }
+
+            .pic {
+                max-width:40%;
+            }
+
+            .custom-button {
+                width: 120px;
+                height: 40px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hdp {
+                font-size: 24px;
+            }
+
+            .pic {
+                max-width:60%;
+            }
+
+            .custom-button {
+                width: 100px;
+                height: 35px;
+                font-size: 12px;
+            }
+        }
 
 </style>
+
 </head>
 <body>
 
-  <div class="navbar">
-    <a href="/">SRP LOGIN</a>
-    <a href="https://github.com/nandu19k">Github</a>
-    <a href="https://www.instagram.com/nerchu_ko/">Instagram</a>
-    <a href="https://www.youtube.com/channel/UCm4_rUfjicRxAlcnkXoOWzQ">Youtube</a>
-    <div class="dropdown">
-      <button class="dropbtn">Other Projects
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a href="https://sms-spam-ml.herokuapp.com/">SMS Spam Detector</a>
-        <a href="https://sentiment-analysis-nerchuko.herokuapp.com/">Sentiment Analysis</a>
-        
-      </div>
-    </div> 
-  </div>
-  
-  <h2><a href = '/'> <p style="text-align:center;">Heart Disease Prediction</p></a></h2>
-   
-  <h2>Results:</h2>
- 
-  {% if prediction == 1%}
-	<h2 style="color:red;">Sorry to say, chances of having Heart disease is more, please consult a Doctor.</h2>
-	<p style="text-align:center;"><img src="https://www.heart.org/-/media/images/news/2019/july-2019/0725lifeexpectancy_sc.jpg" alt="HTML" width="450" height="350"></p>
+    <!-- Results Section -->
+    <div class="container">
+        <h2>Results:</h2>
+
+        <!-- Display Prediction -->
+        {% if prediction == 1%}
+  <div class="result-message error">
+    <p>Sorry to say, the chances of having heart disease are high. Please consult a doctor.</p>
+</div>
+<img class="pic" src="https://res.cloudinary.com/dp8gu4t9m/image/upload/v1729244703/Designer_7_yvi7hq.jpg" alt="Heart Disease Image">
+
+<!-- Suggestions for Heart Disease -->
+<div class="suggestions">
+    <h3>Suggestions:</h3>
+    <ul>
+        <li>Consult a cardiologist immediately for further tests and treatment.</li>
+        <li>Follow a heart-healthy diet (low in fats, cholesterol, and sodium).</li>
+        <li>Engage in regular physical activity such as walking, swimming, or biking.</li>
+        <li>Avoid smoking and reduce alcohol consumption.</li>
+        <li>Manage stress through relaxation techniques, such as meditation or yoga.</li>
+    </ul>
+</div>
+<div>
+    <button class="custom-button" onclick="window.history.back()">Back</button>
+</div>
   {% elif prediction == 0%}
-	<h2 style="color:blue;">No Worries!!! You don't have Heart disease.</h2>
-  <p style="text-align:center;"></p><img src="https://www.becomingminimalist.com/wp-content/uploads/2019/09/how-to-be-happy.jpg" alt="HTML" width="350" height="250"></p>
-  
+  <div class="result-message success">
+    <p>No worries! You don't have heart disease.</p>
+</div>
+<img class="pic" src="https://res.cloudinary.com/dp8gu4t9m/image/upload/v1729244733/Designer_2_raruzn.jpg" alt="Healthy Heart Image">
+
+<!-- Suggestions for No Heart Disease -->
+<div class="suggestions">
+    <h3>Suggestions:</h3>
+    <ul>
+        <li>Continue following a healthy lifestyle to maintain your heart health.</li>
+        <li>Eat a balanced diet rich in fruits, vegetables, and whole grains.</li>
+        <li>Exercise regularly to improve cardiovascular health and overall well-being.</li>
+        <li>Monitor your blood pressure and cholesterol levels regularly.</li>
+        <li>Limit stress by engaging in relaxation practices like meditation or mindfulness.</li>
+    </ul>
+</div>
+
+<div>
+    <button class="custom-button" onclick="window.history.back()">Back</button>
+</div>
 	{% endif %}
 
- 
+</div>
   
   </body>
   </html>
